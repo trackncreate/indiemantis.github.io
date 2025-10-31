@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Indie Mantis is a solo indie game studio crafting 2D fast-paced action games. Follow for devlogs, sneak peeks, and upcoming launches.">
+  <meta name="keywords" content="Indie Mantis, indie game dev, 2D action game, game development, solo developer, pixel art, fast paced game, solo dev, indie mantis, games, indie mantis game, ="Indie Mantis, indie game developer, 2D action games, fast-paced games, solo dev, pixel art games, game dev studio, indie games India, top down shooter, game developer blog, indie devlog, solo game developer, GDevelop games, action platformer, game trailer, game assets, Steam indie game, Itch.io indie game, game design, indie game marketing, indie game trailer, solo indie studio, high-speed games, 2D game developer, Indian game dev, pixel indie game, game jam, game engine, dev update, indie dev discord, retro-style games, combat platformer, solo indie dev, indie game trailer, pixel art action game, 2D game showcase, fast gameplay indie game, top-down combat game, hand-crafted game levels, small studio big vision, game dev timelapse, build your dream game, indie action adventure, build in GDevelop, indie game reveal, game alpha preview, early access indie game, game jam winner, one-man studio, solo game creator, high-speed reflex game, responsive 2D gameplay, indie games to follow 2025, made with passion, explosive action platformer ">
+  <meta name="author" content="Indie Mantis">
+  <title>Indie Mantis</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      color: #00ff00;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: #00ff00;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* Navigation */
+    header {
+      background: #111;
+      border-bottom: 2px solid #00ff00;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo i {
+      font-size: 1.8rem;
+      color: #00ff00;
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      color: #00ff00;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    .nav-links li a {
+      font-weight: bold;
+      padding: 8px 12px;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .nav-links li a:hover {
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+      background: rgba(0, 255, 0, 0.1);
+    }
+
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #00ff00;
+      transition: transform 0.3s ease;
+      z-index: 1001;
+    }
+
+    .menu-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .menu-toggle.active {
+      transform: rotate(90deg);
+    }
+
+    /* Mobile Menu Animations */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 300px;
+        height: 100vh;
+        background: linear-gradient(135deg, #111, #000);
+        border-left: 2px solid #00ff00;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        box-shadow: -5px 0 20px rgba(0, 255, 0, 0.2);
+      }
+
+      .nav-links.mobile-active {
+        right: 0;
+      }
+
+      .nav-links li {
+        opacity: 0;
+        transform: translateX(50px);
+        animation: slideInNavItem 0.3s ease forwards;
+      }
+
+      .nav-links.mobile-active li:nth-child(1) { animation-delay: 0.1s; }
+      .nav-links.mobile-active li:nth-child(2) { animation-delay: 0.2s; }
+      .nav-links.mobile-active li:nth-child(3) { animation-delay: 0.3s; }
+      .nav-links.mobile-active li:nth-child(4) { animation-delay: 0.4s; }
+
+      .nav-links li a {
+        font-size: 1.2rem;
+        padding: 15px 25px;
+        border-radius: 10px;
+        background: rgba(0, 255, 0, 0.1);
+        min-width: 150px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links li a:hover {
+        background: rgba(0, 255, 0, 0.3);
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        position: relative;
+      }
+    }
+
+    @keyframes slideInNavItem {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Menu Overlay for Mobile */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 998;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(to right, #000, #020202);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background: #00ff00;
+      color: #000;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: #00ff00;
+      border: 2px solid #00ff00;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .games h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.2rem;
+    }
+
+    .about, .contact {
+      text-align: center;
+    }
+
+    .about-content, .contact-content {
+      background: #111;
+      padding: 30px;
+      border: 1px solid #00ff00;
+      border-radius: 10px;
+    }
+
+    /* Game Cards */
+    .games .game-cards {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #00ff00;
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .card-header i {
+      font-size: 2rem;
+      color: #00ff00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
+
+    .card-header h3 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+    }
+
+    /* Contact Details */
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      font-size: 1.1rem;
+    }
+
+    .contact-item i {
+      font-size: 1.5rem;
+      color: #00ff00;
+      width: 30px;
+      text-align: center;
+    }
+
+    /* Floating Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      border: 2px solid #00ff00;
+      padding: 25px;
+      border-radius: 15px;
+      z-index: 1000;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+      animation: popupFadeIn 0.3s ease-out;
+    }
+
+    .popup.active {
+      display: block;
+    }
+
+    .popup h4 {
+      margin-bottom: 15px;
+      color: #00ff00;
+      font-size: 1.4rem;
+    }
+
+    .popup select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      background: #000;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+    }
+
+    .popup p {
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #00ff00;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .popup-close:hover {
+      color: #fff;
+    }
+
+    /* Overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    @keyframes popupFadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      padding: 20px;
+      text-align: center;
+      border-top: 2px solid #00ff00;
+    }
+
+    footer p {
+      margin-bottom: 10px;
+    }
+
+    .social-icons a {
+      margin: 0 10px;
+      color: #00ff00;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #0f0;
+      transform: scale(1.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .games .game-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .popup {
+        width: 95%;
+        max-width: none;
+      }
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+    
+    .g {
+      width : 50px;
+      height : 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-overlay" id="menuOverlay"></div>
+  
+  <header>
+    <nav aria-label="Main Navigation">
+      <div class="logo">
+      <img src="logo_green.png" class="g" alt="indie mantis game studio logo">
+        <h1>Indie Mantis</h1>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#games">Games</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </nav>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <section id="home" class="hero fade-in">
+    <div class="hero-content">
+      <h2>Welcome to indie mantis game studio</h2>
+      <p></p>
+      <a href="#games" class="btn">Explore Games</a>
+    </div>
+  </section>
+
+  <section id="games" class="games fade-in">
+    <h2><i class="fas fa-gamepad"></i>&nbsp Games</h2>
+    <div class="game-cards">
+      <div class="card" data-game="1">
+        <div class="card-header">
+          <i class="fas fa-rocket"></i>
+          <h3>Oppi</h3>
+        </div>
+        <img src="logo_green.png" alt="oppi - over powered potential instinct game logo" />
+        <p>Fast paced adventure game - WIP</p>
+      </div>
+      <div class="card" data-game="2">
+        <div class="card-header">
+          <i class="fas fa-khanda"></i>
+          <h3>Project X</h3>
+        </div>
+        <img src="logo_green.png" alt="cipher void game logo" />
+        <p>Action Adventure Plateformer Game - WIP</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Popups -->
+  <div class="popup" id="popup-1">
+    <button class="popup-close">&times;</button>
+    <h4>Oppi Updates</h4>
+    <select id="version-select-1">
+      <option value="v1.0.1">v1.0.1 - Visual Upgardes</option>
+      <!--<option value="v1.2">v1.2 - AI Improvements</option>
+      <option value="v2.0">v2.0 - </option>-->
+    </select>
+    <p id="improvements-1">Currently implementing:</p>
+  </div>
+
+  <div class="popup" id="popup-2">
+    <button class="popup-close">&times;</button>
+    <h4>Project X Updates</h4>
+    <select id="version-select-2">
+      <option value="v1.0">v1.0 - Alpha Test</option>
+      <!--<option value="v1.1">v1.1 - Performance Boost</option>
+      <option value="v2.0">v2.0 - Cross-platform Support</option>-->
+    </select>
+    <p id="improvements-2">Currently implementing: </p>
+  </div>
+
+  <section id="about" class="about fade-in">
+    <div class="about-content">
+      <h2>About Me</h2>
+      <p>Sachin Thankachan(a.k.a Indie Mantis) - Solo developer, currently working for my two new projects: project X(yet to be named) and Oppi</p>
+    </div>
+  </section>
+  
+  <section id="contact" class="contact fade-in">
+    <h2>Contact Me</h2>
+    <div class="contact-content">
+      <div class="contact-details">
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>indiemantis@gmail.com</span>
+        </div>
+        <!--<div class="contact-item">
+          <i class="fas fa-phone"></i>
+          <span>0000000</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Earth</span>-->
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-clock"></i>
+          <span>Everyday</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Indie Mantis. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // IntersectionObserver for fade-in
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Enhanced mobile menu toggle with animations
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+      const menuOverlay = document.getElementById('menuOverlay');
+
+      function openMobileMenu() {
+        navLinks.classList.add('mobile-active');
+        menuToggle.classList.add('active');
+        menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileMenu() {
+        navLinks.classList.remove('mobile-active');
+        menuToggle.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const icon = menuToggle.querySelector('i');
+        if (navLinks.classList.contains('mobile-active')) {
+          closeMobileMenu();
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        } else {
+          openMobileMenu();
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        }
+      });
+
+      // Close mobile menu when clicking overlay
+      menuOverlay.addEventListener('click', closeMobileMenu);
+
+      // Close mobile menu when clicking a link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          closeMobileMenu();
+        });
+      });
+
+      // Close mobile menu on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('mobile-active')) {
+          closeMobileMenu();
+        }
+      });
+
+      // Version-specific improvements data
+      const gameVersions = {
+        1: {
+          "v1.0.1": "Initial release features: Basic combat system, 10 levels, single-player campaign, simple AI enemies.",
+          "v1.2": "AI Improvements: Advanced enemy behavior, smarter pathfinding, dynamic difficulty adjustment, improved boss battles.",
+          "v2.0": "Full Multiplayer: Online co-op mode, PvP battles, clan system, cross-platform play, voice chat integration."
+        },
+        2: {
+          "v1.0": "Alpha Test features: Core gameplay mechanics, 5 test maps, basic matchmaking, limited player count.",
+          "v1.1": "Performance Boost: 60% faster loading times, optimized graphics rendering, reduced memory usage, smoother animations.",
+          "v2.0": "Cross-platform Support: Play across PC, mobile, and console, unified friend system, cloud save synchronization."
+        }
+      };
+
+      // Floating popup behavior for game cards
+      const cards = document.querySelectorAll(".card");
+      const overlay = document.getElementById("overlay");
+
+      cards.forEach(card => {
+        card.addEventListener("click", () => {
+          const gameId = card.getAttribute("data-game");
+          const popup = document.getElementById(`popup-${gameId}`);
+          
+          // Close any open popups
+          document.querySelectorAll(".popup").forEach(p => {
+            p.classList.remove("active");
+          });
+          
+          // Show overlay and popup
+          overlay.classList.add("active");
+          popup.classList.add("active");
+        });
+      });
+
+      // Version dropdown change handlers
+      for (let i = 1; i <= 2; i++) {
+        const select = document.getElementById(`version-select-${i}`);
+        const improvementsText = document.getElementById(`improvements-${i}`);
+        
+        select.addEventListener('change', (e) => {
+          const selectedVersion = e.target.value;
+          const improvements = gameVersions[i][selectedVersion];
+          improvementsText.textContent = improvements;
+        });
+      }
+
+      // Close popup functionality
+      function closePopup() {
+        document.querySelectorAll(".popup").forEach(p => {
+          p.classList.remove("active");
+        });
+        overlay.classList.remove("active");
+      }
+
+      // Close popup when clicking overlay
+      overlay.addEventListener("click", closePopup);
+
+      // Close popup when clicking close button
+      document.querySelectorAll(".popup-close").forEach(btn => {
+        btn.addEventListener("click", closePopup);
+      });
+
+      // Close popup with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closePopup();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
